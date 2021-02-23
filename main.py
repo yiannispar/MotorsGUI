@@ -22,8 +22,8 @@ if __name__ == "__main__":
     device.rs485_mode = serial.rs485.RS485Settings(True,True)
 
     commands.init_both_motors(device)
-    print("Type a command or exit. Available commands:")
-    utils.print_commands()
+    #print("Type a command or exit. Available commands:")
+    #utils.print_commands()
 
     gui.run_gui(device)
 
