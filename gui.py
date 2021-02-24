@@ -18,7 +18,7 @@ def exit_gui(device,window):
 def run_gui(device):
     window = tk.Tk()
     window.title("Piezoelectir motor")
-    window.geometry("700x500")
+    window.geometry("700x530")
     tk.Label(text="Piezoelectric motor program", fg="white", bg="blue", font=("Arial", 25)).pack(pady=25) 
 
     #----------------buttons-------------------------#
@@ -109,10 +109,22 @@ def run_gui(device):
     b_get_position_both_motors['font'] = button_size
     b_get_position_both_motors.place(x=340, y=410)
 
+    b_stop_motor_1  = tk.Button(window, text = 'Stop motor 1', command = lambda: commands.stop_motor(1,device))
+    b_stop_motor_1['font'] = button_size
+    b_stop_motor_1.place(x=20, y=480)
+
+    b_stop_motor_2  = tk.Button(window, text = 'Stop motor 2', command = lambda: commands.stop_motor(2,device))
+    b_stop_motor_2['font'] = button_size
+    b_stop_motor_2.place(x=180, y=480)
+
+    b_stop_both_motors  = tk.Button(window, text = 'Stop both motors', command = lambda: commands.stop_both_motors(device))
+    b_stop_both_motors['font'] = button_size
+    b_stop_both_motors.place(x=340, y=480)
+
     b_exit_gui = tk.Button(window, text="Exit", command= lambda: exit_gui(device,window),fg='red')
     exit_button_font=font.Font(size=25,weight="bold")
     b_exit_gui['font'] = exit_button_font
-    b_exit_gui.place(x=580, y=410)
+    b_exit_gui.place(x=580, y=470)
     #------------------------------------------------#
     
     window.mainloop()
