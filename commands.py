@@ -77,6 +77,17 @@ def stop_both_motors(device):
     stop_motor(1,device)
     stop_motor(2,device)
 
+def get_position(address,device):
+    print("Getting position of motor ", address)
+    command = "X" + str(address) + protocol.get_position + protocol.CR
+    device.write(command.encode())
+    print("Rx:", device.readline().decode())
+
+def get_position_both_motors(device):
+    print("Getting positions of both motors")
+    get_position(1,device)
+    get_position(2,device)
+
 def run_command(args,device):
     command = args[0]
     if command =="mv":
@@ -109,6 +120,12 @@ def run_command(args,device):
     elif command =="stb":
         if len(args) !=1: return
         stop_both_motors(device)
+    elif command =="gp":
+        if len(args) != 2: return
+        get_position(args[1],device)
+    elif command =="gpb":
+        if len(args) !=1: return
+        get_position_both_motors(device)
     else:
         command = command + protocol.CR
         device.write(command.encode())

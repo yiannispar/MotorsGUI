@@ -11,3 +11,4 @@ CR = "\r" #carriage return
 park = "M4"
 unpark = "M2"
 stop = "S"
+get_position = "E"

@@ -1,4 +1,4 @@
-# Piezoelectric motor code v0.1
+# Piezoelectric motor code v1.0
 This repository contains the code to control the motor. (piezomotor company)
 
 main.py 
