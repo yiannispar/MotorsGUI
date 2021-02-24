@@ -13,7 +13,6 @@ import tkinter.font as font
 	
 def exit_gui(device,window):
     commands.park_both_motors(device)
-    time.sleep(4)
     window.destroy()
 
 def run_gui(device):

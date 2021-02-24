@@ -13,13 +13,17 @@ protocol.py
 -----------
 communication protocol from manual
 
-utls.py
+utils.py
 -------
 useful functions
 
 config.py
 --------
 configuration file
+
+gui.py
+------
+GUI interface
 
 How to run
 ----------
