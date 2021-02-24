@@ -17,7 +17,7 @@ def exit_gui(device,window):
 
 def run_gui(device):
     window = tk.Tk()
-    window.title("Piezoelectir motor")
+    window.title("Piezoelectric motor")
     window.geometry("700x530")
     tk.Label(text="Piezoelectric motor program", fg="white", bg="blue", font=("Arial", 25)).pack(pady=25) 
 
