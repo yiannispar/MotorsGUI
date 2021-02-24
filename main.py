@@ -11,6 +11,8 @@ import commands
 import utils
 import protocol
 import gui
+import sys
+import argparse
 
 if __name__ == "__main__":
 
@@ -18,25 +20,32 @@ if __name__ == "__main__":
     print("    Piezoelectric motor program    ")
     print("-----------------------------------")
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-g','-gui', action='store_true',help="opens GUI")
+    args = parser.parse_args()
+
     device = serial.rs485.RS485(config.port, baudrate=config.baudrate, bytesize=config.bytesize, stopbits=config.stopbits, parity=config.parity, timeout=config.timeout)
     device.rs485_mode = serial.rs485.RS485Settings(True,True)
 
     commands.init_both_motors(device)
-    #print("Type a command or exit. Available commands:")
-    #utils.print_commands()
 
-    gui.run_gui(device)
-
+    if args.g:
+        gui.run_gui(device)
+        device.close()
+        sys.exit(0)
     
-    #while True:
-     #   user_input = input("Tx: ")
-      #  if user_input=="": continue
-#
- #       args =  user_input.split()
-  #      if args[0] == "exit": break
-   #     commands.run_command(args,device)
+    print("Type a command or exit. Available commands:")
+    utils.print_commands()
 
-    #commands.park_both_motors(device)
+    while True:
+        user_input = input("Tx: ")
+        if user_input=="": continue
+
+        args =  user_input.split()
+        if args[0] == "exit": break
+        commands.run_command(args,device)
+
+    commands.park_both_motors(device)
     device.close()
 
 
