@@ -23,7 +23,7 @@ def print_commands():
     print("\t\u2022 stb : stop both motors")
     print("\t\u2022 gp <address>: get position")
     print("\t\u2022 gpb : get positions of both motors")
-    print("\t\u2022 go : move motor <address> to position <position>")
+    print("\t\u2022 go <address> <position> : move motor <address> to position <position>")
 
 def mm_to_wfm(distance):
     return float(distance)/wfm_length

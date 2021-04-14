@@ -89,7 +89,7 @@ def get_position_both_motors(device):
     get_position(2,device)
 
 def move_motor_to_position(address,position,device):
-    print("Motor ", address, " moving to position", position )
+    print("Moving motor ", address, " to position", position )
     command = "X" + str(address) + protocol.go_to_position + position + protocol.CR
     device.write(command.encode())
     print("Rx:", device.readline().decode())
