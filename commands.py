@@ -88,10 +88,9 @@ def get_position_both_motors(device):
     get_position(1,device)
     get_position(2,device)
 
-def go_to_position(address,position,device):
+def move_motor_to_position(address,position,device):
     print("Motor ", address, " moving to position", position )
     command = "X" + str(address) + protocol.go_to_position + position + protocol.CR
-    print(command)
     device.write(command.encode())
     print("Rx:", device.readline().decode())
 
@@ -135,7 +134,7 @@ def run_command(args,device):
         get_position_both_motors(device)
     elif command =="go":
         if len(args) != 3: return
-        go_to_position(args[1], args[2],device)
+        move_motor_to_position(args[1], args[2],device)
     else:
         command = command + protocol.CR
         device.write(command.encode())
