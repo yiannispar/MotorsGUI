@@ -37,6 +37,7 @@ def init_both_motors(device):
     unpark_both_motors(device)
     speed = 1 #mm/s
     set_speed_both_motors(speed,device)
+    reverse_encoder_axis(2,device) #reverse axis for motor 2 (necessary)
 
 def set_speed(address,speed,device):
     print("Setting speed of ", speed, " mm/s to motor ", address)
@@ -91,6 +92,12 @@ def get_position_both_motors(device):
 def move_motor_to_position(address,position,device):
     print("Moving motor ", address, " to position", position )
     command = "X" + str(address) + protocol.go_to_position + position + protocol.CR
+    device.write(command.encode())
+    print("Rx:", device.readline().decode())
+
+def reverse_encoder_axis(address,device):
+    print("Reversing encoder axis for motor ", address)
+    command = "X" + str(address) + "Y6,1" + protocol.CR
     device.write(command.encode())
     print("Rx:", device.readline().decode())
 
