@@ -18,7 +18,7 @@ def exit_gui(device,window):
 def run_gui(device):
     window = tk.Tk()
     window.title("Piezoelectric motor")
-    window.geometry("700x850")
+    window.geometry("700x810")
     tk.Label(text="Piezoelectric motor program", fg="white", bg="blue", font=("Arial", 25)).pack(pady=25) 
 
     #----------------buttons-------------------------#
@@ -137,34 +137,34 @@ def run_gui(device):
 
     b_set_current_position_as_home  = tk.Button(window, text = 'Set current\n position as home', command = lambda: commands.set_current_position_as_home(device))
     b_set_current_position_as_home['font'] = button_size
-    b_set_current_position_as_home.place(x=20, y=660)
+    b_set_current_position_as_home.place(x=20, y=640)
 
     b_go_to_home_position  = tk.Button(window, text = 'Go to home\nposition', command = lambda: commands.go_to_home_position(device))
     b_go_to_home_position['font'] = button_size
-    b_go_to_home_position.place(x=200, y=660)
+    b_go_to_home_position.place(x=200, y=640)
 
     b_get_relative_position  = tk.Button(window, text = 'Get relative\nposition', command = lambda: commands.get_relative_position(device))
     b_get_relative_position['font'] = button_size
-    b_get_relative_position.place(x=340, y=660)
+    b_get_relative_position.place(x=340, y=640)
 
     label_go_to_rel_position = tk.Label(text="Move motors to relative position (x,y):")
     label_go_to_rel_position['font'] = button_size
-    label_go_to_rel_position.place(x=20,y=730)
+    label_go_to_rel_position.place(x=20,y=710)
     entry_go_to_rel_position_x = tk.Entry(width=5)
     entry_go_to_rel_position_x['font'] = button_size
-    entry_go_to_rel_position_x.place(x=350, y=730)
+    entry_go_to_rel_position_x.place(x=350, y=710)
     entry_go_to_rel_position_y = tk.Entry(width=5)
     entry_go_to_rel_position_y['font'] = button_size
-    entry_go_to_rel_position_y.place(x=410, y=730)
+    entry_go_to_rel_position_y.place(x=410, y=710)
 
     b_go_to_relative_position  = tk.Button(window, text = 'Go to relative position', command = lambda: commands.go_to_relative_position(entry_go_to_rel_position_x.get(),entry_go_to_rel_position_y.get(),device))
     b_go_to_relative_position['font'] = button_size
-    b_go_to_relative_position.place(x=20, y=770)
+    b_go_to_relative_position.place(x=20, y=750)
 
     b_exit_gui = tk.Button(window, text="Exit", command= lambda: exit_gui(device,window),bg='red')
     exit_button_font=font.Font(size=25,weight="bold")
     b_exit_gui['font'] = exit_button_font
-    b_exit_gui.place(x=580, y=770)
+    b_exit_gui.place(x=580, y=750)
     #------------------------------------------------#
     
     window.mainloop()

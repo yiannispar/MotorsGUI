@@ -100,8 +100,8 @@ def move_motor_to_position(address,position_x,position_y,device):
     command = "X" + str(2) + protocol.go_to_position + position_y + protocol.CR
     device.write(command.encode())
     print("Rx:", device.readline().decode())
-    motor1_home_position=return_motor_position(1,device)
-    motor2_home_position=return_motor_position(2,device)
+    #motor1_home_position=return_motor_position(1,device) these lines need to be deleted (check this)
+    #motor2_home_position=return_motor_position(2,device)
                                  
 def reverse_encoder_axis(address,device):
     print("Reversing encoder axis for motor ", address)
