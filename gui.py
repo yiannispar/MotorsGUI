@@ -148,7 +148,7 @@ def run_gui(device):
     b_exit_gui = tk.Button(window, text="Exit", command= lambda: exit_gui(device,window),bg='red')
     exit_button_font=font.Font(size=25,weight="bold")
     b_exit_gui['font'] = exit_button_font
-    b_exit_gui.place(x=580, y=570)
+    b_exit_gui.place(x=580, y=660)
     #------------------------------------------------#
     
     window.mainloop()
