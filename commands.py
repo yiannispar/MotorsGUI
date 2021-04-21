@@ -92,12 +92,17 @@ def get_position_both_motors(device):
     get_position(1,device)
     get_position(2,device)
 
-def move_motor_to_position(address,position,device):
-    print("Moving motor ", address, " to position", position )
-    command = "X" + str(address) + protocol.go_to_position + position + protocol.CR
+def move_motor_to_position(address,position_x,position_y,device):
+    print("Moving motors to absolute position ", position_x,",",position_y )
+    command = "X" + str(1) + protocol.go_to_position + position_x + protocol.CR
     device.write(command.encode())
     print("Rx:", device.readline().decode())
-
+    command = "X" + str(2) + protocol.go_to_position + position_y + protocol.CR
+    device.write(command.encode())
+    print("Rx:", device.readline().decode())
+    motor1_position=return_motor_position(1,device)
+    motor2_position=return_motor_position(2,device)
+                                 
 def reverse_encoder_axis(address,device):
     print("Reversing encoder axis for motor ", address)
     command = "X" + str(address) + "Y6,1" + protocol.CR
@@ -123,15 +128,20 @@ def go_to_home_position(device):
     print("Moving motors to home positon")
     motor1_pos=motor1_position[:-1]
     motor2_pos=motor2_position[:-1]
-    move_motor_to_position(1,str(motor1_pos),device)
-    move_motor_to_position(2,str(motor2_pos),device)
+    move_motor_to_position(1,str(motor1_pos),str(motor2_pos),device)
 
 def get_relative_position(device):
     print("Getting relative position")
-    posX=int(motor1_position)-int(return_motor_position(1,device))
-    posY=int(motor2_position)-int(return_motor_position(2,device))
+    posX=int(return_motor_position(1,device))-int(motor1_position)
+    posY=int(return_motor_position(2,device))-int(motor2_position)
     print("Motor 1 relative position = ",posX)
     print("Motor 2 relative position = ",posY)
+
+def go_to_relative_position(position_x,position_y,device):
+    print("Moving motors to relative positon x,y ", position_x, ",",position_y)
+    rel_pos1=int(motor1_position)+int(position_x)
+    rel_pos2=int(motor2_position)+int(position_y)
+    move_motor_to_position(1,str(rel_pos1),str(rel_pos2),device)
 
 
 def run_command(args,device):
