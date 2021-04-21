@@ -10,6 +10,9 @@ import serial.rs485
 import math
 import utils
 
+motor1_position=0
+motor2_position=0
+
 def move_motor(address,distance,device):
     print("Moving motor ", address,", ", distance, " mm")
     abs_distance = abs(float(distance))
@@ -100,6 +103,28 @@ def reverse_encoder_axis(address,device):
     command = "X" + str(address) + "Y6,1" + protocol.CR
     device.write(command.encode())
     print("Rx:", device.readline().decode())
+
+def return_motor_position(address,device):
+    command = "X" + str(address) + protocol.get_position + protocol.CR
+    device.write(command.encode())
+    return device.readline().decode()[4:]
+
+def set_current_position_as_home(device):
+    print("Setting current position as home")
+    global motor1_position
+    global motor2_position
+    motor1_position=return_motor_position(1,device)
+    motor2_position=return_motor_position(2,device)
+    print("Home position set")
+    print("Motor 1 = ",motor1_position)
+    print("Motor 2 = ",motor2_position)
+    
+def go_to_home_position(device):
+    print("Moving motors to home positon")
+    motor1_pos=motor1_position[:-1]
+    motor2_pos=motor2_position[:-1]
+    move_motor_to_position(1,str(motor1_pos),device)
+    move_motor_to_position(2,str(motor2_pos),device)
 
 def run_command(args,device):
     command = args[0]
