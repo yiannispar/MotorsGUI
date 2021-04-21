@@ -141,9 +141,13 @@ def run_gui(device):
     b_set_current_position_as_home['font'] = button_size
     b_set_current_position_as_home.place(x=20, y=660)
 
-    b_go_to_home_position  = tk.Button(window, text = 'Go to home position', command = lambda: commands.go_to_home_position(device))
+    b_go_to_home_position  = tk.Button(window, text = 'Go to home\nposition', command = lambda: commands.go_to_home_position(device))
     b_go_to_home_position['font'] = button_size
     b_go_to_home_position.place(x=200, y=660)
+
+    b_get_relative_position  = tk.Button(window, text = 'Get relative\nposition', command = lambda: commands.get_relative_position(device))
+    b_get_relative_position['font'] = button_size
+    b_get_relative_position.place(x=340, y=660)
 
     b_exit_gui = tk.Button(window, text="Exit", command= lambda: exit_gui(device,window),bg='red')
     exit_button_font=font.Font(size=25,weight="bold")

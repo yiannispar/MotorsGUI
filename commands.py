@@ -126,6 +126,14 @@ def go_to_home_position(device):
     move_motor_to_position(1,str(motor1_pos),device)
     move_motor_to_position(2,str(motor2_pos),device)
 
+def get_relative_position(device):
+    print("Getting relative position")
+    posX=int(motor1_position)-int(return_motor_position(1,device))
+    posY=int(motor2_position)-int(return_motor_position(2,device))
+    print("Motor 1 relative position = ",posX)
+    print("Motor 2 relative position = ",posY)
+
+
 def run_command(args,device):
     command = args[0]
     if command =="mv":
