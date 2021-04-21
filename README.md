@@ -1,6 +1,6 @@
 # Piezoelectric motor code v1.0
-This repository contains the code to control the motor. (piezomotor company)
-author: Ioannis Paraskevas
+This repository contains the code to control the motor. (piezomotor company)  
+author: Ioannis Paraskevas  
 last update: April,2021
 
 main.py 
