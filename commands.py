@@ -10,8 +10,8 @@ import serial.rs485
 import math
 import utils
 
-motor1_position=0
-motor2_position=0
+motor1_home_position=0
+motor2_home_position=0
 
 def move_motor(address,distance,device):
     print("Moving motor ", address,", ", distance, " mm")
@@ -100,8 +100,8 @@ def move_motor_to_position(address,position_x,position_y,device):
     command = "X" + str(2) + protocol.go_to_position + position_y + protocol.CR
     device.write(command.encode())
     print("Rx:", device.readline().decode())
-    motor1_position=return_motor_position(1,device)
-    motor2_position=return_motor_position(2,device)
+    motor1_home_position=return_motor_position(1,device)
+    motor2_home_position=return_motor_position(2,device)
                                  
 def reverse_encoder_axis(address,device):
     print("Reversing encoder axis for motor ", address)
@@ -116,31 +116,31 @@ def return_motor_position(address,device):
 
 def set_current_position_as_home(device):
     print("Setting current position as home")
-    global motor1_position
-    global motor2_position
-    motor1_position=return_motor_position(1,device)
-    motor2_position=return_motor_position(2,device)
+    global motor1_home_position
+    global motor2_home_position
+    motor1_home_position=return_motor_position(1,device)
+    motor2_home_position=return_motor_position(2,device)
     print("Home position set")
-    print("Motor 1 = ",motor1_position)
-    print("Motor 2 = ",motor2_position)
+    print("Motor 1 = ",motor1_home_position)
+    print("Motor 2 = ",motor2_home_position)
     
 def go_to_home_position(device):
     print("Moving motors to home positon")
-    motor1_pos=motor1_position[:-1]
-    motor2_pos=motor2_position[:-1]
-    move_motor_to_position(1,str(motor1_pos),str(motor2_pos),device)
+    motor1_home_pos=motor1_home_position[:-1]
+    motor2_home_pos=motor2_home_position[:-1]
+    move_motor_to_position(1,str(motor1_home_pos),str(motor2_home_pos),device)
 
 def get_relative_position(device):
     print("Getting relative position")
-    posX=int(return_motor_position(1,device))-int(motor1_position)
-    posY=int(return_motor_position(2,device))-int(motor2_position)
+    posX=int(return_motor_position(1,device))-int(motor1_home_position)
+    posY=int(return_motor_position(2,device))-int(motor2_home_position)
     print("Motor 1 relative position = ",posX)
     print("Motor 2 relative position = ",posY)
 
 def go_to_relative_position(position_x,position_y,device):
     print("Moving motors to relative positon x,y ", position_x, ",",position_y)
-    rel_pos1=int(motor1_position)+int(position_x)
-    rel_pos2=int(motor2_position)+int(position_y)
+    rel_pos1=int(motor1_home_position)+int(position_x)
+    rel_pos2=int(motor2_home_position)+int(position_y)
     move_motor_to_position(1,str(rel_pos1),str(rel_pos2),device)
 
 
