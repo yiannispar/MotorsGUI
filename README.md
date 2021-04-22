@@ -34,6 +34,7 @@ How to run
 3) python3 main.py
 4) OPTIONAL (recommended): python3 main -g (to open GUI)
 
-Notes:
-1) python3 is required
-2) pySerial is required (https://pyserial.readthedocs.io/en/latest/pyserial.html)
+Requirements:
+1) python3
+2) pySerial (https://pyserial.readthedocs.io/en/latest/pyserial.html)
+3) TKinter
