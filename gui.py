@@ -126,9 +126,11 @@ def run_gui(device):
     label_go_to_position['font'] = button_size
     label_go_to_position.place(x=20,y=540)
     entry_go_to_position_x = tk.Entry(width=5)
+    entry_go_to_position_x.insert(0, "0")
     entry_go_to_position_x['font'] = button_size
     entry_go_to_position_x.place(x=350, y=540)
     entry_go_to_position_y = tk.Entry(width=5)
+    entry_go_to_position_y.insert(0, "0")
     entry_go_to_position_y['font'] = button_size
     entry_go_to_position_y.place(x=410, y=540)
     b_move_motor_1_to_position  = tk.Button(window, text = 'Go to absolute position', command = lambda: commands.move_motor_to_position(entry_go_to_position_x.get(),entry_go_to_position_y.get(),device))
@@ -151,9 +153,11 @@ def run_gui(device):
     label_go_to_rel_position['font'] = button_size
     label_go_to_rel_position.place(x=20,y=710)
     entry_go_to_rel_position_x = tk.Entry(width=5)
+    entry_go_to_rel_position_x.insert(0, "0")
     entry_go_to_rel_position_x['font'] = button_size
     entry_go_to_rel_position_x.place(x=350, y=710)
     entry_go_to_rel_position_y = tk.Entry(width=5)
+    entry_go_to_rel_position_y.insert(0, "0")
     entry_go_to_rel_position_y['font'] = button_size
     entry_go_to_rel_position_y.place(x=410, y=710)
 
