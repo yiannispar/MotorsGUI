@@ -146,10 +146,12 @@ def go_to_relative_position(position_x,position_y,device):
 
 def scan(device):
     print("Scanning in progress")
-    for x in range(1000,5000,1000):
-        for y in range(-1000,-5000,-1000):
-            move_motor_to_position(str(x),str(y),device)
-            time.sleep(20)
+    for pos in range(-1000,1200,500):
+        go_to_relative_position(pos,0,device)
+        time.sleep(10)
+    for pos in range(-1000,1200,500):
+        go_to_relative_position(0,pos,device)
+        time.sleep(10)
     print("Scan completed!")
 
 def run_command(args,device):
