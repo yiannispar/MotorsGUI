@@ -18,7 +18,7 @@ def exit_gui(device,window):
 def run_gui(device):
     window = tk.Tk()
     window.title("Piezoelectric motor")
-    window.geometry("700x810")
+    window.geometry("700x860")
     tk.Label(text="Piezoelectric motor program", fg="white", bg="blue", font=("Arial", 25)).pack(pady=25) 
 
     #----------------buttons-------------------------#
@@ -131,7 +131,7 @@ def run_gui(device):
     entry_go_to_position_y = tk.Entry(width=5)
     entry_go_to_position_y['font'] = button_size
     entry_go_to_position_y.place(x=410, y=540)
-    b_move_motor_1_to_position  = tk.Button(window, text = 'Go to absolute position', command = lambda: commands.move_motor_to_position(1,entry_go_to_position_x.get(),entry_go_to_position_y.get(),device))
+    b_move_motor_1_to_position  = tk.Button(window, text = 'Go to absolute position', command = lambda: commands.move_motor_to_position(entry_go_to_position_x.get(),entry_go_to_position_y.get(),device))
     b_move_motor_1_to_position['font'] = button_size
     b_move_motor_1_to_position.place(x=20, y=580)
 
@@ -161,10 +161,15 @@ def run_gui(device):
     b_go_to_relative_position['font'] = button_size
     b_go_to_relative_position.place(x=20, y=750)
 
+    b_scan  = tk.Button(window, text = 'Start scan', command = lambda: commands.scan(device),bg='green')
+    scan_button_font=font.Font(size=25,weight="bold")
+    b_scan['font'] = scan_button_font
+    b_scan.place(x=20, y=800)
+
     b_exit_gui = tk.Button(window, text="Exit", command= lambda: exit_gui(device,window),bg='red')
     exit_button_font=font.Font(size=25,weight="bold")
     b_exit_gui['font'] = exit_button_font
-    b_exit_gui.place(x=580, y=750)
+    b_exit_gui.place(x=580, y=800)
     #------------------------------------------------#
     
     window.mainloop()

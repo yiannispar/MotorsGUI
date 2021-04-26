@@ -9,6 +9,7 @@ import protocol
 import serial.rs485
 import math
 import utils
+import time
 
 motor1_home_position=0
 motor2_home_position=0
@@ -92,7 +93,7 @@ def get_position_both_motors(device):
     get_position(1,device)
     get_position(2,device)
 
-def move_motor_to_position(address,position_x,position_y,device):
+def move_motor_to_position(position_x,position_y,device):
     print("Moving motors to absolute position ", position_x,",",position_y )
     command = "X" + str(1) + protocol.go_to_position + position_x + protocol.CR
     device.write(command.encode())
@@ -128,7 +129,7 @@ def go_to_home_position(device):
     print("Moving motors to home positon")
     motor1_home_pos=motor1_home_position[:-1]
     motor2_home_pos=motor2_home_position[:-1]
-    move_motor_to_position(1,str(motor1_home_pos),str(motor2_home_pos),device)
+    move_motor_to_position(str(motor1_home_pos),str(motor2_home_pos),device)
 
 def get_relative_position(device):
     print("Getting relative position")
@@ -141,8 +142,15 @@ def go_to_relative_position(position_x,position_y,device):
     print("Moving motors to relative positon x,y ", position_x, ",",position_y)
     rel_pos1=int(motor1_home_position)+int(position_x)
     rel_pos2=int(motor2_home_position)+int(position_y)
-    move_motor_to_position(1,str(rel_pos1),str(rel_pos2),device)
+    move_motor_to_position(str(rel_pos1),str(rel_pos2),device)
 
+def scan(device):
+    print("Scanning in progress")
+    for x in range(1000,5000,1000):
+        for y in range(-1000,-5000,-1000):
+            move_motor_to_position(str(x),str(y),device)
+            time.sleep(20)
+    print("Scan completed!")
 
 def run_command(args,device):
     command = args[0]
