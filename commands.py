@@ -94,10 +94,10 @@ def get_position_both_motors(device):
     get_position(2,device)
 
 def move_motor_to_position(position_x,position_y,device):
-    while int(position_y)<-6500 or int(position_y)>500:
+    if int(position_y)<-6500 or int(position_y)>500:
         print("Position exceeded range: -6500 < motor 2 < 500. Please enter a new value")
         return
-    while int(position_x)>4500 or int(position_x)<-2000:
+    if int(position_x)>4500 or int(position_x)<-2000:
         print("Position exceeded range: -2000 < motor 1 < 4500. Please enter a new value")
         return
     print("Moving motors to absolute position ", position_x,",",position_y )
