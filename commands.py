@@ -94,11 +94,11 @@ def get_position_both_motors(device):
     get_position(2,device)
 
 def move_motor_to_position(position_x,position_y,device):
-    if int(position_y)<-6500 or int(position_y)>500:
-        print("Position exceeded range: -6500 < motor 2 < 500. Please enter a new value")
+    if int(position_y)>5000 or int(position_y)<-2000:
+        print("Position exceeded range: -2000 < motor 2 < 5000. Please enter a new value")
         return
-    if int(position_x)>4500 or int(position_x)<-2000:
-        print("Position exceeded range: -2000 < motor 1 < 4500. Please enter a new value")
+    if int(position_x)>1500 or int(position_x)<-4500:
+        print("Position exceeded range: -4500 < motor 1 < 1500. Please enter a new value")
         return
     print("Moving motors to absolute position ", position_x,",",position_y )
     command = "X" + str(1) + protocol.go_to_position + position_x + protocol.CR
@@ -150,10 +150,10 @@ def go_to_relative_position(position_x,position_y,device):
 
 def scan(device):
     print("Scanning in progress")
-    for pos in range(-1000,1200,500):
+    for pos in range(1000,3200,500):
         go_to_relative_position(pos,0,device)
         time.sleep(10)
-    for pos in range(-1000,1200,500):
+    for pos in range(1000,3200,500):
         go_to_relative_position(0,pos,device)
         time.sleep(10)
     print("Scan completed!")
