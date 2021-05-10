@@ -150,7 +150,7 @@ def go_to_relative_position(position_x,position_y,device):
 
 def scan(device):
     print("Scanning in progress")
-    for pos in range(1000,3200,500):
+    for pos in range(0,-2200,500):
         go_to_relative_position(pos,0,device)
         time.sleep(10)
     for pos in range(1000,3200,500):
