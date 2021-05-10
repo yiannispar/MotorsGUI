@@ -27,7 +27,7 @@ gui.py
 ------
 GUI interface
 
-How to run
+How to run on Linux (checked on Windows Subsystem for Linux)
 ----------
 1) Power on the board and connect it to the PC using the USB cable
 2) Open "config.py" and make sure you have the correct port
@@ -38,3 +38,8 @@ Requirements:
 1) python3
 2) pySerial (https://pyserial.readthedocs.io/en/latest/pyserial.html)
 3) TKinter
+
+How to run on Windows (checked on Windows 10)
+---------------------
+Open config.py and change port name "dev/ttyS#" to "COM#" (# represents the number of the port)
+
