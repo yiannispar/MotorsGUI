@@ -42,6 +42,7 @@ def init_both_motors(device):
     speed = 1 #mm/s
     set_speed_both_motors(speed,device)
     reverse_encoder_axis(2,device) #reverse axis for motor 2 (necessary)
+    avoid_overshoot(device)
 
 def set_speed(address,speed,device):
     print("Setting speed of ", speed, " mm/s to motor ", address)
@@ -94,11 +95,11 @@ def get_position_both_motors(device):
     get_position(2,device)
 
 def move_motor_to_position(position_x,position_y,device):
-    if int(position_y)>5000 or int(position_y)<-2000:
-        print("Position exceeded range: -2000 < motor 2 < 5000. Please enter a new value")
+    if int(position_y)>3500 or int(position_y)<-3000:
+        print("Position exceeded range: -3000 < motor 2 < 3500. Please enter a new value")
         return
-    if int(position_x)>1500 or int(position_x)<-4500:
-        print("Position exceeded range: -4500 < motor 1 < 1500. Please enter a new value")
+    if int(position_x)>3000 or int(position_x)<-3500:
+        print("Position exceeded range: -3500 < motor 1 < 3000. Please enter a new value")
         return
     print("Moving motors to absolute position ", position_x,",",position_y )
     command = "X" + str(1) + protocol.go_to_position + position_x + protocol.CR
@@ -150,13 +151,31 @@ def go_to_relative_position(position_x,position_y,device):
 
 def scan(device):
     print("Scanning in progress")
-    for pos in range(0,-2200,500):
+    for pos in range(-1000,1500,500):
         go_to_relative_position(pos,0,device)
-        time.sleep(10)
-    for pos in range(1000,3200,500):
-        go_to_relative_position(0,pos,device)
-        time.sleep(10)
+        check_if_position_reached(device,pos)
+
+ #   for pos in range(1000,3200,500):
+ #       go_to_relative_position(0,pos,device)
+ #       time.sleep(10)
     print("Scan completed!")
+
+def avoid_overshoot(device):
+    print("Target mode set to avoid overshoot in both directions")
+    command = "X1Y12,3" + protocol.CR #motor 1
+    device.write(command.encode())
+    print("Rx:", device.readline().decode())
+    command = "X2Y12,3" + protocol.CR #motor 2
+    device.write(command.encode())
+    print("Rx:", device.readline().decode())
+
+def check_if_position_reached(device,targetPos):
+    while True:
+        posX=int(return_motor_position(1,device))
+        if abs(posX-targetPos)<=3:
+            print("Position reached!")
+            return
+        time.sleep(5)
 
 def run_command(args,device):
     command = args[0]
