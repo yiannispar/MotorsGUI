@@ -42,7 +42,7 @@ def init_both_motors(device):
     speed = 1 #mm/s
     set_speed_both_motors(speed,device)
     reverse_encoder_axis(2,device) #reverse axis for motor 2 (necessary)
-    avoid_overshoot(device)
+    avoid_overshoot(device) #target mode 3 to avoid overshooting
     print("--------------------------------")
 
 def set_speed(address,speed,device):
