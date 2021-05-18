@@ -24,26 +24,10 @@ def run_gui(device):
     #----------------buttons-------------------------#
     button_size=font.Font(size=15)
 
-    #b_park_motor_1  = tk.Button(window, text = 'Park motor 1', command = lambda: commands.park_motor(1,device))
-    #b_park_motor_1['font'] = button_size
-    #b_park_motor_1.place(x=20, y=100)
-
-    #b_park_motor_2  = tk.Button(window, text = 'Park motor 2', command = lambda: commands.park_motor(2,device))
-    #b_park_motor_2['font'] = button_size
-    #b_park_motor_2.place(x=170, y=100)
-    
     b_park_both_motors = tk.Button(window, text = 'Park motors', command = lambda: commands.park_both_motors(device))
     b_park_both_motors['font'] = button_size
     b_park_both_motors.place(x=20, y=100)
 
-    #b_unpark_motor_1  = tk.Button(window, text = 'Unpark motor 1', command = lambda: commands.unpark_motor(1,device))
-    #b_unpark_motor_1['font'] = button_size
-    #b_unpark_motor_1.place(x=20, y=150)
-
-    #b_unpark_motor_2  = tk.Button(window, text = 'Unpark motor 2', command = lambda: commands.unpark_motor(2,device))
-    #b_unpark_motor_2['font'] = button_size
-    #b_unpark_motor_2.place(x=170, y=150)
-        
     b_unpark_both_motors = tk.Button(window, text = 'Unpark  motors', command = lambda: commands.unpark_both_motors(device))
     b_unpark_both_motors['font'] = button_size
     b_unpark_both_motors.place(x=170, y=100)
@@ -57,34 +41,34 @@ def run_gui(device):
 
     b_move_motor_1 = tk.Button(window, text = 'Move x-axis', command = lambda: commands.move_motor(1,entry.get(),device))
     b_move_motor_1['font'] = button_size
-    b_move_motor_1.place(x=20, y=190)
+    b_move_motor_1.place(x=20, y=180)
 
     b_move_motor_2 = tk.Button(window, text = 'Move y-axis', command = lambda: commands.move_motor(2,entry.get(),device))
     b_move_motor_2['font'] = button_size
-    b_move_motor_2.place(x=170, y=190)
+    b_move_motor_2.place(x=170, y=180)
 
     b_move_both_motors = tk.Button(window, text = 'Move both axes', command = lambda: commands.move_both_motors(entry.get(),device))
     b_move_both_motors['font'] = button_size
-    b_move_both_motors.place(x=320, y=190)
+    b_move_both_motors.place(x=320, y=180)
 
     label_speed = tk.Label(text="Set speed to motor(s) [mm/s]:")
     label_speed['font'] = button_size
-    label_speed.place(x=20,y=280)
+    label_speed.place(x=20,y=240)
     entry_speed = tk.Entry(width=5)
     entry_speed['font'] = button_size
-    entry_speed.place(x=270, y=280)
+    entry_speed.place(x=270, y=240)
 
     b_set_speed_motor_1 = tk.Button(window, text = 'Set speed to x-axis', command = lambda: commands.set_speed(1,entry_speed.get(),device))
     b_set_speed_motor_1['font'] = button_size
-    b_set_speed_motor_1.place(x=20, y=310)
+    b_set_speed_motor_1.place(x=20, y=270)
 
     b_set_speed_motor_2 = tk.Button(window, text = 'Set speed to y-axis', command = lambda: commands.set_speed(2,entry_speed.get(),device))
     b_set_speed_motor_2['font'] = button_size
-    b_set_speed_motor_2.place(x=230, y=310)
+    b_set_speed_motor_2.place(x=230, y=270)
     
     b_set_speed_both_motors  = tk.Button(window, text = 'Set speed to both axes', command = lambda: commands.set_speed_both_motors(entry_speed.get(),device))
     b_set_speed_both_motors['font'] = button_size
-    b_set_speed_both_motors.place(x=440, y=310)
+    b_set_speed_both_motors.place(x=440, y=270)
 
     label_send_command = tk.Label(text="Command:")
     label_send_command['font'] = button_size
@@ -96,15 +80,6 @@ def run_gui(device):
     b_send_command  = tk.Button(window, text = 'Send', command = lambda: commands.run_command(entry_send_command.get().split(),device))
     b_send_command['font'] = button_size
     b_send_command.place(x=350, y=360)
-
-    #b_get_position_1  = tk.Button(window, text = 'Get position of\n motor 1', command = lambda: commands.get_position(1,device))
-    #b_get_position_1['font'] = button_size
-    #b_get_position_1.place(x=20, y=410)
-
-    #b_get_position_2  = tk.Button(window, text = 'Get position of\n motor 2', command = lambda: commands.get_position(2,device))
-    #b_get_position_2['font'] = button_size
-    #b_get_position_2.place(x=180, y=410)
-
 
     b_stop_motor_1  = tk.Button(window, text = 'Stop x-axis', command = lambda: commands.stop_motor(1,device),fg='red')
     stop_motor_button_font=font.Font(size=15,weight="bold")
