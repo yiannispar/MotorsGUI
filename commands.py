@@ -38,11 +38,14 @@ def unpark_both_motors(device):
 
 #unpark and set an initial speed (1 mm/s)    
 def init_both_motors(device):
+    print("---------INITIALIZATION---------")
     unpark_both_motors(device)
     speed = 1 #mm/s
     set_speed_both_motors(speed,device)
     reverse_encoder_axis(2,device) #reverse axis for motor 2 (necessary)
     avoid_overshoot(device)
+    print("Initial home position is: (",motor1_home_position,",",motor2_home_position,")")
+    print("--------------------------------")
 
 def set_speed(address,speed,device):
     print("Setting speed of ", speed, " mm/s to motor ", address)
@@ -90,18 +93,20 @@ def get_position(address,device):
     print("Rx:", device.readline().decode())
 
 def get_position_both_motors(device):
-    print("Getting positions of both motors")
-    get_position(1,device)
-    get_position(2,device)
+    print("Getting absolute position")
+    posX=return_motor_position(1,device)
+    posY=return_motor_position(2,device)
+    print("x = ", posX)
+    print("y = ", posY)
 
 def move_motor_to_position(position_x,position_y,device):
-    if int(position_y)>3500 or int(position_y)<-3000:
-        print("Position exceeded range: -3000 < motor 2 < 3500. Please enter a new value")
-        return
-    if int(position_x)>3000 or int(position_x)<-3500:
-        print("Position exceeded range: -3500 < motor 1 < 3000. Please enter a new value")
-        return
-    print("Moving motors to absolute position ", position_x,",",position_y )
+    #if int(position_y)>3500 or int(position_y)<-3000:
+    #    print("Position exceeded range: -3000 < motor 2 < 3500. Please enter a new value")
+    #    return
+    #if int(position_x)>3000 or int(position_x)<-3500:
+    #    print("Position exceeded range: -3500 < motor 1 < 3000. Please enter a new value")
+    #    return
+    print("Moving to absolute position ", position_x,",",position_y )
     command = "X" + str(1) + protocol.go_to_position + position_x + protocol.CR
     device.write(command.encode())
     print("Rx:", device.readline().decode())
@@ -127,24 +132,24 @@ def set_current_position_as_home(device):
     motor1_home_position=return_motor_position(1,device)
     motor2_home_position=return_motor_position(2,device)
     print("Home position set")
-    print("Motor 1 = ",motor1_home_position)
-    print("Motor 2 = ",motor2_home_position)
+    print("x = ",motor1_home_position)
+    print("y = ",motor2_home_position)
     
 def go_to_home_position(device):
-    print("Moving motors to home positon")
-    motor1_home_pos=motor1_home_position[:-1]
-    motor2_home_pos=motor2_home_position[:-1]
-    move_motor_to_position(str(motor1_home_pos),str(motor2_home_pos),device)
+    print("Moving to home positon")
+    motor1_home_pos=str(motor1_home_position)
+    motor2_home_pos=str(motor2_home_position)
+    move_motor_to_position(motor1_home_pos[:-1],motor2_home_pos[:-1],device)
 
 def get_relative_position(device):
     print("Getting relative position")
     posX=int(return_motor_position(1,device))-int(motor1_home_position)
     posY=int(return_motor_position(2,device))-int(motor2_home_position)
-    print("Motor 1 relative position = ",posX)
-    print("Motor 2 relative position = ",posY)
+    print("x = ",posX)
+    print("y = ",posY)
 
 def go_to_relative_position(position_x,position_y,device):
-    print("Moving motors to relative positon x,y ", position_x, ",",position_y)
+    print("Moving to relative positon x,y ", position_x, ",",position_y)
     rel_pos1=int(motor1_home_position)+int(position_x)
     rel_pos2=int(motor2_home_position)+int(position_y)
     move_motor_to_position(str(rel_pos1),str(rel_pos2),device)
@@ -152,12 +157,11 @@ def go_to_relative_position(position_x,position_y,device):
 def scan(device):
     print("Scanning in progress")
     for pos in range(-1000,1500,500):
-        go_to_relative_position(pos,0,device)
-        check_if_position_reached(device,pos)
-
- #   for pos in range(1000,3200,500):
- #       go_to_relative_position(0,pos,device)
- #       time.sleep(10)
+        go_to_relative_position(pos,0,device) #x-axis
+        check_if_position_reached(1,device,pos)
+    for pos in range(-1000,1500,500):
+        go_to_relative_position(0,pos,device) #y-axis
+        check_if_position_reached(2,device,pos)
     print("Scan completed!")
 
 def avoid_overshoot(device):
@@ -169,13 +173,18 @@ def avoid_overshoot(device):
     device.write(command.encode())
     print("Rx:", device.readline().decode())
 
-def check_if_position_reached(device,targetPos):
+def check_if_position_reached(motor,device,targetPos):
     while True:
-        posX=int(return_motor_position(1,device))
-        if abs(posX-targetPos)<=3:
+        pos=int(return_motor_position(motor,device))
+        if abs(pos-targetPos)<=3:
             print("Position reached!")
             return
         time.sleep(5)
+
+def get_home_position(device):
+    print("Current home position:")
+    print("x = ", motor1_home_position)
+    print("y = ", motor2_home_position)
 
 def run_command(args,device):
     command = args[0]
