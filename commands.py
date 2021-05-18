@@ -36,7 +36,6 @@ def unpark_both_motors(device):
     unpark_motor(1,device)
     unpark_motor(2,device)
 
-#unpark and set an initial speed (1 mm/s)    
 def init_both_motors(device):
     print("---------INITIALIZATION---------")
     unpark_both_motors(device)
@@ -186,6 +185,7 @@ def get_home_position(device):
     print("y = ", motor2_home_position)
 
 
+#used in command line mode
 def run_command(args,device):
     command = args[0]
     if command =="mv":
