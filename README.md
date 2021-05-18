@@ -1,6 +1,6 @@
 # Piezoelectric motor code v1.0
 This repository contains the code that controls the motors on the 2-D translation stage. (piezomotor company)  
-Author: Ioannis Paraskevas <ioannis.paraskevas.13@ucl.ac.uk>
+Author: Ioannis Paraskevas <ioannis.paraskevas.13@ucl.ac.uk>  
 Last update: May,2021
 
 main.py 
@@ -41,5 +41,5 @@ Requirements:
 
 How to run on Windows (tested on Windows 10)
 ---------------------
-Open config.py and change port name "dev/ttyS#" to "COM#" (# represents the port number)
+Open config.py and change port name "dev/ttyS#" to "COM#" (# represents the port number)  
 Note: The GUI might appear differently
