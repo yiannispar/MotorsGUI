@@ -44,7 +44,6 @@ def init_both_motors(device):
     set_speed_both_motors(speed,device)
     reverse_encoder_axis(2,device) #reverse axis for motor 2 (necessary)
     avoid_overshoot(device)
-    print("Initial home position is: (",motor1_home_position,",",motor2_home_position,")")
     print("--------------------------------")
 
 def set_speed(address,speed,device):
@@ -185,6 +184,7 @@ def get_home_position(device):
     print("Current home position:")
     print("x = ", motor1_home_position)
     print("y = ", motor2_home_position)
+
 
 def run_command(args,device):
     command = args[0]

@@ -175,7 +175,7 @@ def run_gui(device):
     b_scan['font'] = scan_button_font
     b_scan.place(x=20, y=740)
 
-    b_exit_gui = tk.Button(window, text="Exit", command= lambda: exit_gui(device,window),bg='red')
+    b_exit_gui = tk.Button(window, text="Exit", command= lambda: exit_gui(device,window))
     exit_button_font=font.Font(size=25,weight="bold")
     b_exit_gui['font'] = exit_button_font
     b_exit_gui.place(x=580, y=740)

@@ -16,9 +16,9 @@ import argparse
 
 if __name__ == "__main__":
 
-    print("-----------------------------------")
-    print("    Piezoelectric motor program    ")
-    print("-----------------------------------")
+    print("-------------------------------------")
+    print("    2-D Translation Stage Program    ")
+    print("-------------------------------------")
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-g','-gui', action='store_true',help="opens GUI")
