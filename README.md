@@ -32,7 +32,7 @@ How to run on Linux (tested on Windows 10 Subsystem for Linux)
 1) Power on the board and connect it to the PC using the USB cable
 2) Open "config.py" and make sure you have the correct port
 3) python3 main.py  
-*Optional (recommended): python3 main -g (to open GUI)
+*Optional* (recommended): python3 main -g (to open GUI)
 
 Requirements:
 1) python3
