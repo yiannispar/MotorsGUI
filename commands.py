@@ -143,8 +143,8 @@ def get_relative_position(device):
     print("Getting relative position")
     posX=int(return_motor_position(1,device))-int(motor1_home_position)
     posY=int(return_motor_position(2,device))-int(motor2_home_position)
-    print("x = ",posX)
-    print("y = ",posY)
+    print("x = ",posX," encoder counts = ", utils.convert_counts_to_mm(posX)," mm")
+    print("y = ",posY," encoder counts = ", utils.convert_counts_to_mm(posY)," mm")
 
 def go_to_relative_position(position_x,position_y,device):
     print("Moving to relative positon x,y ", position_x, ",",position_y)

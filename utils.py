@@ -9,6 +9,7 @@ import serial
 
 wfm_length = 0.0045 #mm
 microsteps_in_wfm = 8192 #microsteps in one wfm
+mm_per_count = 25.4/4000 
 
 def print_commands():
     print("\t\u2022 mv <address> <distance [mm]>: move motor")
@@ -34,3 +35,6 @@ def convert_speed(speed):
     
 def calculate_microsteps(wfm):
     return str(round(wfm * microsteps_in_wfm))
+
+def convert_counts_to_mm(counts):
+    return round(float(counts * mm_per_count),2)
