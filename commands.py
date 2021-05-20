@@ -10,9 +10,10 @@ import serial.rs485
 import math
 import utils
 import time
+import config
 
-motor1_home_position=0
-motor2_home_position=0
+motor1_home_position=config.x_home_pos
+motor2_home_position=config.y_home_pos
 
 def move_motor(address,distance,device):
     print("Moving motor ", address,", ", distance, " mm")
@@ -98,17 +99,13 @@ def get_position_both_motors(device):
     print("y = ", posY)
 
 def move_motor_to_position(position_x,position_y,device):
-    #if int(position_y)>3500 or int(position_y)<-3000:
-    #    print("Position exceeded range: -3000 < motor 2 < 3500. Please enter a new value")
-    #    return
-    #if int(position_x)>3000 or int(position_x)<-3500:
-    #    print("Position exceeded range: -3500 < motor 1 < 3000. Please enter a new value")
-    #    return
+    isRangeExceeded=utils.isRangeExceeded(position_x,position_y)
+    if isRangeExceeded==True: return
     print("Moving to absolute position ", position_x,",",position_y )
-    command = "X" + str(1) + protocol.go_to_position + position_x + protocol.CR
+    command = "X" + str(1) + protocol.go_to_position + str(position_x) + protocol.CR
     device.write(command.encode())
     print("Rx:", device.readline().decode())
-    command = "X" + str(2) + protocol.go_to_position + position_y + protocol.CR
+    command = "X" + str(2) + protocol.go_to_position + str(position_y) + protocol.CR
     device.write(command.encode())
     print("Rx:", device.readline().decode())
                                  
@@ -150,7 +147,7 @@ def go_to_relative_position(position_x,position_y,device):
     print("Moving to relative positon x,y ", position_x, ",",position_y)
     rel_pos1=int(motor1_home_position)+int(position_x)
     rel_pos2=int(motor2_home_position)+int(position_y)
-    move_motor_to_position(str(rel_pos1),str(rel_pos2),device)
+    move_motor_to_position(rel_pos1,rel_pos2,device)
 
 def scan(device):
     print("Scanning in progress")

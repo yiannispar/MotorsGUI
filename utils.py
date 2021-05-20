@@ -38,3 +38,20 @@ def calculate_microsteps(wfm):
 
 def convert_counts_to_mm(counts):
     return round(float(counts * mm_per_count),2)
+
+def convert_mm_to_counts(mm):
+    return float(mm * 1/mm_per_count)
+
+def isRangeExceeded(posX,posY):
+    isXwithinRange=True
+    isYwithinRange=True
+    if int(posX)>3000 or int(posX)<-3500:
+        print("Position exceeded range: -3500 < motor 1 < 3000. Please enter a new value")
+        isXwithinRange=False
+    if int(posY)>3500 or int(posY)<-3000:
+        print("Position exceeded range: -3000 < motor 2 < 3500. Please enter a new value")
+        isYwithinRange=False
+
+    if isXwithinRange and isYwithinRange:
+        return False
+    else: return True
