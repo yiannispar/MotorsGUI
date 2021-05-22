@@ -13,3 +13,6 @@ bytesize = serial.EIGHTBITS
 stopbits = serial.STOPBITS_ONE
 parity = serial.PARITY_NONE
 timeout=2
+
+x_home_pos=0
+y_home_pos=2500
