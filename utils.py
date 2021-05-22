@@ -40,7 +40,7 @@ def convert_counts_to_mm(counts):
     return round(float(counts * mm_per_count),2)
 
 def convert_mm_to_counts(mm):
-    return float(mm * 1/mm_per_count)
+    return round(float(mm * 1/mm_per_count))
 
 def isRangeExceeded(posX,posY):
     isXwithinRange=True

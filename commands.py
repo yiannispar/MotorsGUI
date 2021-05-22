@@ -149,13 +149,20 @@ def go_to_relative_position(position_x,position_y,device):
     rel_pos2=int(motor2_home_position)+int(position_y)
     move_motor_to_position(rel_pos1,rel_pos2,device)
 
-def scan(device):
+#scan relative to  home position
+def scan(device,x_min,x_max,x_step,y_min,y_max,y_step):
+    if int(x_step)==0 or int(y_step)==0:
+        print("Step size cannot be 0")
+        return
+    
     print("Scanning in progress")
-    for pos in range(-1000,1500,500):
-        go_to_relative_position(pos,0,device) #x-axis
+    print("x from ", int(x_min),"mm to ", int(x_max),"mm in steps of ", int(x_step)," mm")
+    print("y from ", int(y_min),"mm to ", int(y_max),"mm in steps of ", int(y_step)," mm")
+    for pos in range(utils.convert_mm_to_counts(int(x_min)),utils.convert_mm_to_counts(int(x_max)),utils.convert_mm_to_counts(int(x_step))): #x-axis scan
+        go_to_relative_position(pos,0,device)
         check_if_position_reached(1,device,pos)
-    for pos in range(-1000,1500,500):
-        go_to_relative_position(0,pos,device) #y-axis
+    for pos in range(utils.convert_mm_to_counts(int(y_min)),utils.convert_mm_to_counts(int(y_max)),utils.convert_mm_to_counts(int(y_step))): #y-axis scan
+        go_to_relative_position(0,pos,device)
         check_if_position_reached(2,device,pos)
     print("Scan completed!")
 
@@ -174,7 +181,7 @@ def check_if_position_reached(motor,device,targetPos):
         if abs(pos-targetPos)<=3:
             print("Position reached!")
             return
-        time.sleep(5)
+        time.sleep(1)
 
 def get_home_position(device):
     print("Current home position:")
